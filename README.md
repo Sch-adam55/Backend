@@ -5,7 +5,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. https://summer-tempo-907.notion.site/Useful-Links-1d4a9da79c3680c48230d0db7a25b568
 
 ## Project setup
 
