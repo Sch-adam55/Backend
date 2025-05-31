@@ -5,7 +5,20 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. https://summer-tempo-907.notion.site/Useful-Links-1d4a9da79c3680c48230d0db7a25b568
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Linkek:
+https://summer-tempo-907.notion.site/Useful-Links-1d4a9da79c3680c48230d0db7a25b568
+Useful Links
+https://summer-tempo-907.notion.site/Useful-Links-1d4a9da79c3680c48230d0db7a25b568
+
+Java GUI
+http://faragocsaba.hu/java-stdlibs-gui
+
+MySql
+https://dev.mysql.com/doc/connector-net/en/connector-net-tutorials-sql-command.html
+
+HGabor git
+https://github.com/hgabor
 
 ## Project setup
 
