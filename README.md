@@ -131,3 +131,13 @@ catch (Exception ex)
     Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
     Environment.Exit(1);
 }
+
+
+<DataGrid x:Name="MemberGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" Width="687">
+    <DataGrid.Columns>
+        <DataGridTextColumn Header="Név" Binding="{Binding Name}" Width="*"/>
+        <DataGridTextColumn Header="Nem" Binding="{Binding Gender}" Width="100"/>
+        <DataGridTextColumn Header="Születési dátum" Binding="{Binding BirthDate, StringFormat=yyyy-MM-dd}" Width="150"/>
+        <DataGridTextColumn Header="Kitiltva" Binding="{Binding BannedDisplay}" Width="100"/>
+    </DataGrid.Columns>
+</DataGrid>
