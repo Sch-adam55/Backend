@@ -24,6 +24,12 @@ dokumentum: (https://github.com/user-attachments/files/20540169/Szoftverfejleszt
 
 
 Parancsok:
+Frontend:
+- npx create-react-app bookclubfrontend
+  cd bookclubfrontend
+  
+- npm install bootstrap( // src/index.js import 'bootstrap/dist/css/bootstrap.min.css';)
+
 
 
 
