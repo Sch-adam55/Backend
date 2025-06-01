@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
 
 ## Description
 
@@ -105,3 +101,33 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+        string query = "SELECT * FROM members";
+        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+        {
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    long id = Convert.ToInt64(reader["id"]);
+                    string name = reader["name"].ToString();
+                    string gender;
+                    if (reader["gender"] == DBNull.Value)
+                        gender = "U";
+                    else
+                        gender = reader["gender"].ToString();
+
+                    DateTime birthDate = Convert.ToDateTime(reader["birth_date"]);
+                    bool banned = Convert.ToBoolean(reader["banned"]);
+
+                    members.Add(new Member(id, name, gender, birthDate, banned));
+                }
+            }
+        }
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
+    Environment.Exit(1);
+}
