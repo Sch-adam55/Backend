@@ -94,32 +94,57 @@ Check out a few resources that may come in handy when working with NestJS:
 - Website - [https://nestjs.com](https://nestjs.com/)
 
 segétlet:
-        string query = "SELECT * FROM members";
-        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+       public List<Member> members = new List<Member>();
+
+public Statisztika()
+{
+    LoadMembers();
+}
+private void LoadMembers()
+{
+    try
+    {
+        string connStr = "server=localhost;user=root;database=vizsga-konyvklub;port=3306";
+        using (MySqlConnection conn = new MySqlConnection(connStr))
         {
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            conn.Open();
+            string query = "SELECT * FROM members";
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
             {
-                while (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    long id = Convert.ToInt64(reader["id"]);
-                    string name = reader["name"].ToString();
-                    string gender;
-                    if (reader["gender"] == DBNull.Value)
-                        gender = "U";
-                    else
-                        gender = reader["gender"].ToString();
-                    DateTime birthDate = Convert.ToDateTime(reader["birth_date"]);
-                    bool banned = Convert.ToBoolean(reader["banned"]);
-                    members.Add(new Member(id, name, gender, birthDate, banned));
+                    while (reader.Read())
+                    {
+                        long id = reader.GetInt64("id");
+                        string name = reader.GetString("name");
+                        int gender = reader.IsDBNull("gender") ? "Ismeretlen" : reader.GetString("gender");
+                        DateTime birthDate = reader.GetDateTime("birth_date");
+                        bool banned = reader.GetBoolean("banned");
+                        members.Add(new Member(id, name, gender, birthDate, banned));
+                    }
                 }
             }
         }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
+        Environment.Exit(1);
+    }
 }
-catch (Exception ex)
+public void Futtatas()
 {
-    Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
-    Environment.Exit(1);
+    KitiltottakSzama();
+    VanE18EvAlatti();
+    LegidosebbTag();
+    NemekSzerint();
+    KeresesNevAlapjan();
+}
+
+private void KitiltottakSzama()
+{
+    int count = Members.FindAll(m => m.Banned).Count;
+    Console.WriteLine($"Kitiltott tagok száma: {count}");
 }
 -------
 
