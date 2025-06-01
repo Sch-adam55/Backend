@@ -94,7 +94,6 @@ Check out a few resources that may come in handy when working with NestJS:
 - Website - [https://nestjs.com](https://nestjs.com/)
 
 segétlet:
-        
         string query = "SELECT * FROM members";
         using (MySqlCommand cmd = new MySqlCommand(query, conn))
         {
@@ -109,10 +108,8 @@ segétlet:
                         gender = "U";
                     else
                         gender = reader["gender"].ToString();
-
                     DateTime birthDate = Convert.ToDateTime(reader["birth_date"]);
                     bool banned = Convert.ToBoolean(reader["banned"]);
-
                     members.Add(new Member(id, name, gender, birthDate, banned));
                 }
             }
@@ -124,7 +121,6 @@ catch (Exception ex)
     Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
     Environment.Exit(1);
 }
-
 
 <DataGrid x:Name="MemberGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" Width="687">
     <DataGrid.Columns>
