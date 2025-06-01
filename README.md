@@ -121,7 +121,7 @@ catch (Exception ex)
     Console.WriteLine("Hiba az adatbázis elérésekor: " + ex.Message);
     Environment.Exit(1);
 }
-
+-------
 <DataGrid x:Name="MemberGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" Width="687">
     <DataGrid.Columns>
         <DataGridTextColumn Header="Név" Binding="{Binding Name}" Width="*"/>
@@ -130,3 +130,57 @@ catch (Exception ex)
         <DataGridTextColumn Header="Kitiltva" Binding="{Binding BannedDisplay}" Width="100"/>
     </DataGrid.Columns>
 </DataGrid>
+----------
+import React, {useEffect, useState} from 'react';
+import './App.css';
+import MemberList from './components/MemberList';
+import AddMemberFrom from'./components/AddMemberFrom';
+
+function App() {
+  const[members, setMember] = useState([]);
+  const [successMessage, setsuccesMessage] = useState('');
+
+  const loadMembers = async () => {
+    try{
+      const response = await fetch('/api/members');
+      const data = await response.json();
+      setMember(data); 
+    }catch (error){
+      console.error("Hiba a tagok lekérdezésekor :" , error);
+    }
+  };
+
+  useEffect(() => {
+    loadMembers();
+  }, []);
+
+
+  return (
+    <div className='container py4'>
+      <header className='mb-4'>
+        <h1>Petrik kövnyklub</h1>
+        <nav className='nay'>
+          <a className='nav-link' href='#add-member'>Új tag felvétele</a>
+          <a className='nav-link' href='https://petrik.hu/' target='_blank' rel='noreferrer'>Petrik honlap</a>
+        </nav>
+      </header>
+
+      {successMessage && (
+        <div className='alert alert-success'>{successMessage}</div>
+      )}
+
+      <MemberList members={members} onPaySuccess={() => {
+        setsuccesMessage("Sikeres befizetés!");
+        setTimeout(() => setsuccesMessage(""), 3000);
+      }}/>
+
+      <section id='add-member' className='mt-5'>
+        <AddMemberFrom onMemberAdded={loadMembers}/>
+      </section>
+
+      <footer className='text-center mt-5'>
+        <small>Készítette: Schweitzer Ádám</small>
+      </footer>
+    </div>
+  );
+}
