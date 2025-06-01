@@ -30,6 +30,20 @@ Frontend:
   
 - npm install bootstrap( // src/index.js import 'bootstrap/dist/css/bootstrap.min.css';)
 
+Backend:
+- npm i -g @nestjs/cli
+  nest new bookclubbackend
+  
+- cd bookclubbackend
+  npm install @nestjs/typeorm typeorm mysql2
+
+- nest generate module members
+  nest generate service members
+  nest generate controller members
+
+- nest generate module payments
+  nest generate service payments
+  nest generate controller payments
 
 
 
