@@ -101,6 +101,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 segétlet:
+        
         string query = "SELECT * FROM members";
         using (MySqlCommand cmd = new MySqlCommand(query, conn))
         {
