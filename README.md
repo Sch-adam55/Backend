@@ -133,6 +133,7 @@ catch (Exception ex)
 </DataGrid>
 
 ----------
+app:
 
 import React, {useEffect, useState} from 'react';
 import './App.css';
@@ -181,3 +182,57 @@ function App() {
     </div>
   );
 }
+
+components (Card):
+
+import React from "react";
+
+const MemberCard = ({ member, onPaySuccess }) => {
+  const getImageForGender = (gender) => {
+    switch (gender) {
+      case 'Férfi':
+        return '/images/male.png';
+      case 'Nő':
+        return '/images/female.png';
+      default:
+        return '/images/other.png';
+    }
+  };
+
+  const handlePayment = async () => {
+    try {
+      const response = await fetch(`/api/members/${member.id}/pay`, {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message || 'Hiba történt a befizetés során.');
+      } else {
+        onPaySuccess();
+      }
+    } catch (error) {
+      alert('Hálózati hiba a befizetés során.');
+    }
+  };
+
+  return (
+    <div className="card mb-4 shadow-sm">
+      <div className="card-body text-center">
+        <h5 className="card-title">{member.name}</h5>
+        <img
+          src={getImageForGender(member.gender)}
+          alt="Neme"
+          style={{ width: '60px', height: '60px' }}
+          className="my-2"
+        />
+        <p>Születési dátum: {member.birthDate}</p>
+        <p>Csatlakozás ideje: {member.joinDate}</p>
+        <button className="btn btn-success mt-2" onClick={handlePayment}>
+          Tagdíj befizetés
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default MemberCard;
