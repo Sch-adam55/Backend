@@ -157,6 +157,48 @@ private void KitiltottakSzama()
     </DataGrid.Columns>
 </DataGrid>
 
+WPF:
+private void ToggleBanButton_Click(object sender, RoutedEventArgs e)
+{
+    Member selected = MemberGrid.SelectedItem as Member;
+    if (selected == null)
+    {
+        MessageBox.Show("Tiltás módosításához előbb válasszon ki klubtagot", "Nincs kijelölés", MessageBoxButton.OK, MessageBoxImage.Warning);
+        return;
+    }
+    string message = selected.Banned
+        ? "Biztos szeretné visszavonni a kiválasztott klubtag tiltását?"
+        : "Biztos szeretné kitiltani a kiválasztott klubtagot?";
+    if (MessageBox.Show(message, "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+    {
+        try
+        {
+            string connStr = "server=localhost;user=root;database=vizsga-konyvklub;port=3306;password=YOUR_PASSWORD";
+            using (var conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("UPDATE members SET banned = @banned WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@banned", !selected.Banned);
+                cmd.Parameters.AddWithValue("@id", selected.Id);
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    selected.GetType().GetProperty("Banned").SetValue(selected, !selected.Banned);
+                    MemberGrid.Items.Refresh();
+                    MessageBox.Show("A tiltás állapota sikeresen módosítva.", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Nem sikerült frissíteni az adatbázist.", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Hiba történt a frissítés során: " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+}
+
 ----------
 app:
 
