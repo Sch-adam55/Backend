@@ -20,6 +20,14 @@ https://dev.mysql.com/doc/connector-net/en/connector-net-tutorials-sql-command.h
 HGabor git
 https://github.com/hgabor
 
+dokumentum: (https://github.com/user-attachments/files/20540169/Szoftverfejleszto_mintavizsga1_2023-Automatikusan-mentett1.docx)
+
+
+Parancsok:
+
+
+
+
 ## Project setup
 
 ```bash
